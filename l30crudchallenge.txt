@@ -1,0 +1,65 @@
+=>CRUD Challenge
+
+CREATE DATABASE shirtsdb;
+
+SHOW DATABASES;
+
+USE shirtsdb;
+
+CREATE TABLE IF NOT EXISTS shirts(
+    shirtid INT NOT NULL AUTO_INCREMENT,
+    article VARCHAR(100),
+    color VARCHAR(100),
+    size  VARCHAR(100),
+    PRIMARY key(shirtid)
+);
+
+DESC shirts;
+
+INSERT INTO shirts (article,color,size) VALUE('t-shirt','white','S');
+
+INSERT INTO shirts (article,color,size) VALUES
+('t-shirt','green','S'),
+('t-shirt','blue','S'),
+('plo shirt','pink','M'),
+('tank top','red','S'),
+('t-shirt','white','S'),
+('polo shirt','yellow','L'),
+('t-shirt','violet','XL'),
+('polo shirt','black','S');
+
+
+SELECT * FROM shirts;
+
+SELECT article,color FROM shirts;
+
+SELECT article,color,size FROM shirts
+WHERE size = 'm';
+
+SELECT article,color,size FROM shirts
+WHERE size = 'S';
+
+SELECT article,color,size FROM shirts
+WHERE article = 'polo shirt';
+
+
+UPDATE shirts SET size="L" WHERE article = "polo shirt";
+
+UPDATE shirts SET article="polo shirt" WHERE article = "plo shirt";
+
+SELECT * FROM shirts;
+
+UPDATE shirts SET color="black" WHERE article = "t-shirt";
+
+SELECT * FROM shirts;
+
+DELETE FROM shirts WHERE shirtid=6;
+
+SELECT * FROM shirts;
+
+DROP TABLE IF EXISTS shirts;
+
+----------------------------------------------------
+
+
+31CU

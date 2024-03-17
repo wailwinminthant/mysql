@@ -1,0 +1,258 @@
+=>Stored Routines 
+(i) PROCEDURE ( we call stored Prpcedures )
+    (a) IN = Input Parameters 
+    (b) OUT = Output Parameters
+    (iii) INOUT = Inout Parameters 
+
+(ii) FUNCTION 
+    (a) Bulit In Function 
+    (b) User Define Function 
+        (i) Input Parameters (function can be with parameter or without parameter / function always return only 1 value)
+        
+----------------------------------------------------
+
+
+(i) PROCEDURE ( we call stored Prpcedures ) 
+
+CREATE TABLE IF NOT EXISTS capitals(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    date DATE NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    payment ENUM('MMK','USD') NOT NULL,
+    accounts ENUM('credit','debit') NOT NULL
+);
+
+
+DESC capitals;
+
+
+INSERT INTO capitals(date,name,amount,payment,accounts)
+VALUES ('2024-1-20','mr.tin',500000,1,1),
+('2024-1-21','ms.july',300000,1,1),
+('2024-1-22','ms.july',200000,1,1),
+('2024-2-1','mr.tin',1000,2,1),
+('2024-2-2','mr.tin',3000,2,1),
+('2024-2-2','ms.july',3000,2,1),
+('2024-2-5','mr.tin',1000,2,1),
+('2024-2-6','mr.tin',1000,2,1),
+('2024-2-10','mr.tin',200000,1,2);
+
+SELECT * FROM capitals;
+
+
+
+=> Capital By MMK 
+SELECT name,SUM(amount),payment,accounts
+FROM capitals 
+WHERE accounts = "credit" AND payment = "MMK"
+GROUP by name;
+
+
+=> Capital By USD 
+SELECT name,SUM(amount),payment,accounts
+FROM capitals 
+WHERE accounts = "credit" AND payment = "USD"
+GROUP by name;
+
+
+CREATE OR REPLACE VIEW vw_capitalbymmk AS 
+SELECT name,SUM(amount),payment,accounts
+FROM capitals 
+WHERE accounts = "credit" AND payment = "MMK"
+GROUP by name;
+
+
+CREATE OR REPLACE VIEW vw_capitalbyusd AS 
+SELECT name,SUM(amount),payment,accounts
+FROM capitals 
+WHERE accounts = "credit" AND payment = "USD"
+GROUP by name;
+
+
+SHOW FULL TABLES WHERE TABLE_TYPE LIKE 'VIEW';
+
+
+SELECT * FROM vw_capitalbymmk;
+SELECT * FROM vw_capitalbyusd;
+
+------------------------------------------------------
+
+=>Capital By accounts
+
+
+SELECT date,name,amount,payment,accounts
+FROM capitals 
+WHERE accounts = "credit"
+ORDER BY date DESC;  
+
+
+SELECT date,name,amount,payment,accounts
+FROM capitals 
+WHERE accounts = "debit"
+ORDER BY date DESC;
+
+
+DELIMITER // 
+    CREATE PROCEDURE cpreportaccounts_proc(p_acc VARCHAR(10))
+    BEGIN 
+        SELECT date,name,amount,payment,accounts
+        FROM capitals 
+        WHERE accounts = p_acc
+        ORDER BY date DESC; 
+    END; //
+
+DELIMITER ;
+
+
+SHOW TABLES;
+SHOW FULL TABLES;
+
+SHOW TRIGGERS;
+
+=>Show 
+SHOW PROCEDURE STATUS WHERE DB = 'wdfbatch9';  
+
+
+=>Drop
+DROP PROCEDURE IF EXISTS cpreportaccounts_proc;  
+
+
+*error 
+CALL cpreportaccounts_proc();
+
+
+CALL cpreportaccounts_proc('credit');
+CALL cpreportaccounts_proc('DEBIT');
+
+------------------------------------------------------
+
+SELECT date,name,amount,payment,accounts
+FROM capitals 
+WHERE date="2024-01-20";
+
+
+DELIMITER //
+    CREATE PROCEDURE cpreportbydate_proc(IN p_date DATE)
+    BEGIN 
+        SELECT date,name,amount,payment,accounts
+        FROM capitals 
+        WHERE date=p_date;
+    END; //
+DELIMITER ;
+
+
+SHOW PROCEDURE STATUS WHERE DB = 'wdfbatch9';
+
+CALL cpreportbydate_proc('2024-01-21');
+CALL cpreportbydate_proc('2024-02-2');
+
+------------------------------------------------------ 3PG
+
+
+=> Input and Output Parameters 
+
+SELECT * FROM customers;
+
+SELECT COUNT(*) FROM customers 
+WHERE city = "bago"; //2
+
+
+SELECT COUNT(*) FROM customers 
+WHERE city = "yangon"; //4
+
+
+DELIMITER //
+    CREATE PROCEDURE totalcureportbycity_proc(
+        IN p_city VARCHAR(50),
+        OUT p_totalcu INT)
+    BEGIN
+        SELECT COUNT(*) INTO p_totalcu FROM customers 
+        WHERE city = p_city;
+    END; //
+DELIMITER ;
+
+
+
+
+SET @totalcustomers := 0;
+SELECT @totalcustomers;
+
+CALL totalcureportbycity_proc("bago",@totalcustomers);
+
+SELECT @totalcustomers;
+
+
+
+------------------------------------------------------ 
+
+SELECT * FROM customers;
+
+SELECT firstname,lastname,amount,city FROM customers;
+
+SELECT MIN(amount),MAX(amount),city FROM customers
+WHERE city = "yangon";
+
+
+DELIMITER // 
+    CREATE PROCEDURE minmaxcubycity_proc(
+        IN p_city VARCHAR(50),
+        OUT p_minamount INT,
+        OUT p_maxamount INT
+        )
+    BEGIN
+        SELECT MIN(amount),MAX(amount) INTO p_minamount,p_maxamount FROM customers
+        WHERE city = p_city;
+    END;//
+DELIMITER ;
+
+
+
+
+SET @min := 0;
+SET @max := 0;
+
+CALL minmaxcubycity_proc("yangon",@min,@max);
+SELECT @min,@max;
+SELECT (@max-@min) AS differentamount;
+
+
+
+------------------------------------------------------ 
+
+
+
+=>In / OUT / INOUT 
+
+SELECT * FROM customers;
+
+SELECT firstname,lastname,amount,city FROM customers;
+
+SELECT MIN(age),MAX(age),city FROM customers
+WHERE city = "yangon";
+
+
+DELIMITER // 
+    CREATE PROCEDURE minmaxagecubycity_proc(
+        INOUT p_city VARCHAR(50),
+        OUT p_minage INT,
+        OUT p_maxage INT
+        )
+    BEGIN
+        SELECT MIN(age),MAX(age) INTO p_minage,p_maxage FROM customers
+        WHERE city = p_city;
+    END;//
+DELIMITER ;
+
+
+
+
+SET @min := 0;
+SET @max := 0;
+SET @city := "yangon";
+
+CALL minmaxagecubycity_proc( @city,@min,@max);
+SELECT @city,@min,@max;
+
+
+------------------------------------------------------------

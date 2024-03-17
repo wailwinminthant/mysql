@@ -1,0 +1,40 @@
+=>HAVING Clause
+
+=Syntax
+
+SELECT column1,column2,column3,....
+FROM talblename
+GROUP BY column1,column2,.....
+HAVING condition;
+
+
+--------------------------------------------------------- // 2HV
+
+=Exercise
+
+SELECT * FROM customers;
+
+SELECT COUNT(*),city FROM customers
+GROUP BY city;
+
+
+SELECT COUNT(*),city FROM customers
+WHERE city LIKE "ma%"
+GROUP BY city;
+
+SELECT COUNT(*),city FROM customers
+GROUP BY city
+HAVING city LIKE "ma%"; // Groupby လုပ်ပြီးမှ Condition စစ်ချင်ရင် HAVING ကိုသုံးတယ် 
+
+
+SELECT city,SUM(amount) 
+FROM customers
+GROUP BY city;
+
+
+SELECT city,SUM(amount) 
+FROM customers
+GROUP BY city
+HAVING SUM(amount) > 200000;
+
+--------------------------------------------------------

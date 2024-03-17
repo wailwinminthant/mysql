@@ -1,0 +1,145 @@
+=Select Data By Using WHERE Clause
+
+Syntax
+
+SELECT * FROM tablename
+WHERE condition;
+
+SELECT column1,column2,column3,... FROM tablename
+WHERE condition;
+
+--------------------------------
+
+
+SELECT * FROM persons;
+
+SELECT * FROM persons
+WHERE city = "mandalay" ;
+
+SELECT * FROM persons
+WHERE city = "Mandalay" ;
+
+SELECT * FROM persons
+WHERE city = "MANDALAY" ;
+
+
+SELECT firstname,lastname,city FROM persons
+WHERE city = "yangon" ;
+
+
+
+SELECT firstname,lastname,city FROM persons
+WHERE city LIKE "Yangon" ;
+
+SELECT firstname,lastname,city FROM persons
+WHERE city LIKE "YANGON" ; //4WH
+
+SELECT firstname,lastname,city FROM persons
+WHERE id=5 ;
+
+
+SELECT * FROM suppliers
+WHERE firstname = "Aung kyaw" ;
+
+SELECT * FROM suppliers
+WHERE firstname = "Tin Htut" ;
+
+SELECT * FROM suppliers
+WHERE firstname = "Tin Htut" ;
+
+
+SELECT * FROM suppliers
+WHERE firstname LIKE "tin Htut" ;
+
+SELECT * FROM suppliers
+WHERE firstname LIKE "Tin Htut" ;
+
+SELECT * FROM suppliers
+WHERE firstname LIKE "Tin Htut" ;
+
+
+---------------------------------------
+
+!= or <>
+
+SELECT * FROM persons
+WHERE city != "mandalay";
+
+SELECT * FROM persons
+WHERE city <> "mandalay"; // not mandalay
+
+
+SELECT * FROM persons
+WHERE NOT city = "mandalay";
+
+SELECT * FROM persons
+WHERE NOT city LIKE "mandalay";
+
+SELECT * FROM persons
+WHERE city NOT LIKE "mandalay";
+
+* ERROR
+SELECT * FROM persons
+WHERE city !LIKE "mandalay";
+
+
+------------------------------------------------
+< <= > >=
+
+
+SELECT firstname,lastname,age FROM engineers;
+
+SELECT firstname,lastname,age FROM engineers
+WHERE age = 25;
+
+SELECT firstname,lastname,age FROM engineers
+WHERE age < 18;
+
+
+SELECT firstname,lastname,age FROM engineers
+WHERE age <= 18;
+
+
+SELECT firstname,lastname,age FROM engineers
+WHERE age > 18;
+
+SELECT firstname,lastname,age FROM engineers
+WHERE age >= 18;
+
+SELECT firstname,lastname,age FROM engineers
+WHERE age != 18;
+
+SELECT firstname,lastname,age FROM engineers
+WHERE age <> 18;
+
+-------------------------------------
+
+=> BETWEEN with AND
+
+SELECT firstname,lastname,age FROM engineers;
+
+SELECT firstname,lastname,age,gender FROM engineers
+WHERE age BETWEEN 18 AND 30;
+
+SELECT firstname,lastname,age,gender FROM engineers
+WHERE age BETWEEN 18 AND 30 AND gender = "male" ;
+
+SELECT firstname,lastname,age,gender FROM engineers
+WHERE gender = "male" AND age BETWEEN 18 AND 30  ;
+
+
+=> NOT BETWEEN with AND
+
+SELECT firstname,lastname,age,gender FROM engineers
+WHERE age BETWEEN 18 AND 30;
+
+SELECT firstname,lastname,age,gender FROM engineers
+WHERE age NOT BETWEEN 18 AND 30;
+
+SELECT firstname,lastname,age,gender FROM engineers
+WHERE age NOT BETWEEN 18 AND 30 AND gender="female";
+
+
+---------------------------------------------- 5BT
+
+

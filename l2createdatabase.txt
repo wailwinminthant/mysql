@@ -1,0 +1,28 @@
+=>Database List
+SHOW DATABASES;  #23DB
+
+=> Choose Database
+USE (databasename);
+
+=> Create Database
+CREATE DATABASE *databasename*;
+
+=> Delete Database
+DROP DATABASE *databasename*;
+
+=About Database Naming
+
+*CAN CREATE
+
+CREATE DATABASE bookshop;
+CREATE DATABASE book_shop;
+CREATE DATABASE bookShop;
+
+
+
+*CAN'T CREATE
+
+CREATE DATABASE Book Shop;
+CREATE DATABASE Book#$Shop;
+
+-----------------------------------------

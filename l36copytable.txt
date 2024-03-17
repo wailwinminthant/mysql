@@ -1,0 +1,60 @@
+=>Copy/Clone/Duplicate Table
+
+=Syntax
+
+CREATE TABLE IF NOT EXISTS nametable
+SELECT column1,column2,column3
+FROM existingtablename;
+
+CREATE TABLE IF NOT EXISTS nametable
+SELECT column1,column2,column3
+FROM existingtablename
+WHERE condition;
+
+---------------------------------------------
+
+=Exercise 
+
+CREATE TABLE IF NOT EXISTS originaltable(
+    id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    productname VARCHAR(45) NOT NULL,
+    brandname VARCHAR(45) DEFAULT NULL,
+    madeby VARCHAR(30) DEFAULT NULL,
+    year YEAR NOT NULL 
+);
+
+DESC originaltable;
+
+INSERT INTO originaltable(productname,brandname,madeby,year)
+VALUES('AV25','Asus','China',2020),
+('AS50','Asus','China',2022),
+('F11','Oppo','China',2022),
+('S3','Samsung','China',2021),
+('V35','Vivo','China',2021),
+('iphone 14','Apple','China',2022),
+('iphone 15','Apple','China',2023);
+
+SELECT * FROM originaltable;
+
+CREATE TABLE IF NOT EXISTS duplicatetable
+SELECT * FROM originaltable;
+
+SELECT * FROM duplicatetable; Noe : not it keys
+
+CREATE TABLE IF NOT EXISTS copytable
+SELECT * FROM originaltable
+WHERE year=2022;
+
+SELECT * FROM copytable;
+
+
+
+CREATE TABLE IF NOT EXISTS clonetable
+SELECT productname,year FROM originaltable;
+
+SELECT * FROM clonetable;
+
+
+---------------------------------------------------------------------
+
+just email (21.1.2024);

@@ -1,0 +1,274 @@
+=>Numeric Data Types
+
+Data Type                                       Description
+BIT(size)                                       A  bit-value , from 1 t0 64. default value is 1 
+BOOL                                            Zero is considered as false, Non-Zero values are considered as true
+BOOLEAN                                         Zero is considered as false, Non-Zero values are considered as true
+
+TINYINT(size)                                   A very small integer -128 to 127,signed range -128 to 127 , Unsigned range 0 to 255
+SAMLLINT(size)                                  A small integer signed range -32768 to 32767 , Unsigned range 0 to 65535 (65kb)
+MEDIUMINT(size)                                 A medium integer signed range -8388608 to 8388607 , Unsigned range 0 to 16777215(16mb)
+INT                                             signed range -2147483648 to 2147483647 , Unsigned range 0 to 4294967295(4gb)
+INTEGER(size)                                   signed range -2147483648 to 2147483647 , Unsigned range 0 to 4294967295
+BITINT()                                        A large Integer 4gb
+
+
+DECIMAL(size,d)                                 fixed-point number. default value for d is 0
+                                                ec(999.99) is 5 digit  and 2 decimal / DECIMAL(5,2)
+DEC(size,d)                                     fixed-point number. default value for d is 0 eg(100.d => 100.0)
+FLOAT(size,p)                                   A floating point number (Approximate Value) Used In Chemistry , Physics
+FLOAT(p)                                        A floating point number (Approximate Value). p is optional. p is from 0 to 24 Used In Chemistry , Physics
+DOUBLE(size,p)                                  A floating point number (Approximate Value). p is optional. p is from 25 to 53 Used In Chemistry , Physics
+
+Note:: DECIMAL for finance ( such as money )
+       FLOAT & DOUBLE for science app 
+
+------------------------------------------------- // 10DC
+
+
+=>Exercise
+
+CREATE TABLE IF NOT EXISTS items(
+       name VARCHAR(20),
+       price INT,
+       status BOOL
+);
+
+
+DESC items;
+
+
+INSERT INTO items(name,price)
+VALUES('water',100),
+('coffee',500),
+('cake',800),
+('snack',250.56),
+('jam',1000);
+
+SELECT * FROM items;
+
+INSERT INTO items(name,price,status)
+VALUES('water',100,0),
+('coffee',500,1),
+('cake',800,0),
+('snack',250.56,1), // In INT there is no decimal 250.56 => 251
+('jam',1000,0);
+
+SELECT * FROM items;
+
+
+CREATE TABLE IF NOT EXISTS proitems(
+       name VARCHAR(20),
+       purchaseprice INT(4) SIGNED,
+       sellprice INT(4) UNSIGNED,
+       status BOOL
+);
+
+
+DESC proitems;
+
+
+INSERT INTO proitems(name,purchaseprice,sellprice,status)
+VALUES('water',9000,9500,0),
+('coffee',-100,200,1),
+('cake',800,100,0),
+('snack',-250.56,350.77,1),
+('jam',-1000,-2000,0); // error because of unsigned there is no negative value // phpmyadmin there is no error because of mariadb
+
+SELECT * FROM proitems;
+
+*error
+INSERT INTO proitems(name,purchaseprice,sellprice,status)
+VALUES('water',1000,-1100,0),
+('coffee',-100,-200,1);
+
+
+--------------------------------------------------------------
+
+                                          number data type 
+                                          int           fixed-point   floation-point
+                                          integer       DECIMAL       FLOAT/DOUBLE 
+
+DECIMAL(5,2)
+EG(999.99) is 5 digit and 2 decimal digit 
+
+DECIMAL(5,3) = 20.234
+20.5 = 20.500 
+20.52354987 = 20.524 (warining)
+
+
+CREATE TABLE IF NOT EXISTS sellitems(
+       name VARCHAR(20),
+       price DECIMAL(6,2)
+);
+
+DESC sellitems;
+
+
+
+*result water  500.00
+INSERT INTO sellitems(name,price)
+VALUE('water',500);
+
+SELECT * FROM sellitems; 
+
+
+
+*result coffee 100.43
+INSERT INTO sellitems(name,price)
+VALUE('coffee',100.43);
+
+SELECT * FROM sellitems;
+
+
+*result redbull 1000.01
+INSERT INTO sellitems(name,price)
+VALUE('redbull',1000.01);
+
+SELECT * FROM sellitems;
+
+*result sponsor 1000.99
+INSERT INTO sellitems(name,price)
+VALUE('sponsor',1000.99);
+
+SELECT * FROM sellitems;
+
+
+*result sponsor 1000.99
+INSERT INTO sellitems(name,price)
+VALUE('sponsor',1000.9948);
+
+SELECT * FROM sellitems;
+
+
+ 
+//16DE 
+
+*result sponsor 1000.35
+INSERT INTO sellitems(name,price)
+VALUE('sponsor',1000.3456);
+
+SELECT * FROM sellitems;
+
+
+*result sponsor 551.00
+INSERT INTO sellitems(name,price)
+VALUE('sponsor',550.9999);
+
+SELECT * FROM sellitems;
+
+
+
+*result sponsor 1000.00
+INSERT INTO sellitems(name,price)
+VALUE('sponsor',1000);
+
+SELECT * FROM sellitems;
+
+
+*result error
+INSERT INTO sellitems(name,price)
+VALUE('sponsor',100000);
+
+SELECT * FROM sellitems;
+
+-------------------------------------------
+
+
+=> FLOAT() vs DOUBLE
+
+CREATE TABLE IF NOT EXISTS shoppings(
+       name VARCHAR(20),
+       purchaseprice FLOAT,
+       sellprice FLOAT(4)
+);
+
+DESC shoppings;
+
+INSERT INTO shoppings(name,purchaseprice,sellprice)
+VALUES('water',100,100),
+('coffee',500,500.34),
+('cake',800,800.56),
+('snack',250,250.889),
+('jam',9000,10000); 
+
+SELECT * FROM shoppings;
+
+
+
+*result = 112233
+INSERT INTO shoppings(name,purchaseprice,sellprice)
+VALUES('birdnest',112233.45,112233.45);
+
+SELECT * FROM shoppings;
+
+
+
+*result = 11223300
+INSERT INTO shoppings(name,purchaseprice,sellprice)
+VALUES('birdnest',11223344.45,11223344.45);
+
+SELECT * FROM shoppings;
+
+
+*result = 1122330000
+INSERT INTO shoppings(name,purchaseprice,sellprice)
+VALUES('birdnest',1122334455.45,1122334455.45);
+
+SELECT * FROM shoppings;
+
+
+--------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS buyings(
+       name VARCHAR(20),
+       purchaseprice FLOAT,
+       sellprice DOUBLE
+);
+
+DESC buyings;
+
+
+INSERT INTO buyings(name,purchaseprice,sellprice)
+VALUES('water',100,100),
+('coffee',500,500.34),
+('cake',800,800.56),
+('snack',250,250.889),
+('jam',9000,10000); 
+
+SELECT * FROM buyings;
+
+
+*result = 112233
+INSERT INTO buyings(name,purchaseprice,sellprice)
+VALUES('birdnest',112233.45,112233.45);
+
+SELECT * FROM buyings;
+
+
+*result = 11223300 11223344.45
+INSERT INTO buyings(name,purchaseprice,sellprice)
+VALUES('birdnest',11223344.45,11223344.45);
+
+SELECT * FROM buyings;
+
+*result = 1122330000 1122334455.45
+INSERT INTO buyings(name,purchaseprice,sellprice)
+VALUES('birdnest',1122334455.45,1122334455.45);
+
+SELECT * FROM buyings;
+
+
+*result = 1.12233e15 1122334455667788.5
+INSERT INTO buyings(name,purchaseprice,sellprice)
+VALUES('birdnest',1122334455667788.45,1122334455667788.45);
+
+SELECT * FROM buyings;
+
+-----------------------------------------------
+
+=> e/E 
+HTML input number type allow 'e/E' buz 'e' stands for exponential (exponent) which is a numberic symbol 
+Eg . 200000 can written as 2e5 (3e4 = 3x10^4 = 30000)
+^ (call Caret or Hat) 

@@ -1,0 +1,137 @@
+SQL - structure Query Language
+library - အပြင်က လာထည့်တာ 
+framework - System တစ်ခုခုကို install လုပ်ပြီးတော့ သူ့ rule အတိုင်းရေး(depend on system)
+2DB
+
+websever = Apache / Nginx
+databaseserver = MariaDB(MySQL)
+PHP = PHP
+Perl = email service  // 
+
+ss 
+student id
+ph number
+anydesk id = ...
+history = .....
+
+
+=> Comment
+
+Single Line Comment
+# comment here
+-- comment here
+/* comment here */
+
+Multi Line Comment 
+
+/*
+multi
+line
+comment
+here
+*/
+
+------------------------------------------------------------
+
+==> Arithmethic Operator (5 Types)
+
+Operator
++ ( Add )
+- ( Subtraction )
+* ( Multiply )
+/ ( Divide ) စားကြွင်း
+% ( Modulus ) စားလဒ်
+
+------------------------------------------------------------
+
+=> Comparation Operatoes ( 9 types )
+
+= 					Equal
+> 					Greater than
+< 					Less than
+>= 					Greater than or Ewual
+<= 					Less than or Equal
+!= or <>  			Not Equal
+BETWEEN 			Between as a certain range
+LIKE				Search for a pattern
+In 					To specify multiple possible value for a columns
+
+------------------------------------------------------------
+
+Webserver
+
+localhost 
+127.0.0.1 10DB
+
+
+
+=Exercise Addition Operator = Syntax
+
+SELECT 10 + 2; #12
+SELECT '10' + 2; #12
+SELECT "10" + '2'; #12
+SELECT 10+20, 20+30; #30 50
+SELECT , 20+30; #30 50
+
+SELECT 100 + 'aung aung'; #100
+SELECT '100' + 'aung aung'; #100
+SELECT  'aung aung' + 100 ; #100
+SELECT  'aung aung' + '100' ; #100
+SELECT  'aung aung' + 'kyaw kyaw' ; #0
+
+
+=Exercise Subtraction Operator = Syntax
+SELECT 10-2;#8
+SELECT 20-10,30 - 15; #10 15
+SELECT '1000' - '500',500 - '600'; #500 -100
+
+
+=Exercise Multiplication Operator = Syntax
+SELECT 10 * 2; #20
+SELECT 5*3, 15 * 5; #15 75
+SELECT '20'*'3', '100' * '5'; #60 500
+
+
+=Exercise Division Operator = Syntax
+
+SELECT 10/2; #5
+SELECT 2 /3 ,3/5; # 0.6667	0.6000
+SELECT '100' / 25 , '2000'/'2'; #4	1000
+SELECT 100 / 0; # NULL
+
+SELECT 10 DIV 2; #5
+SELECT 2 DIV 3 ,3 DIV 5; # 0.6667	0.6000
+SELECT '100' DIV 25 , '2000' DIV '2'; #4	1000
+SELECT 100 DIV 0; # NULL
+
+=Exercise Modulus Operator = Syntax
+
+SELECT 10 % 3; #1
+SELECT 20%3 , 30 % 5; # 2 0
+SELECT '20'%5 , '500' % '300' ; # 0	200
+
+SELECT 10 MOD 3; #1
+SELECT 20 MOD 3 , 30 MOD 5; # 2 0
+SELECT '20' MOD 5 , '500' MOD '300' ; # 0	200
+
+--------------------------------------------------------------
+
+= CRUD
+Create / Read / Update / Delete
+
+CREATE DATABASE - create a new database
+CREATE TABLE - create a new table
+
+ALTER DATABASE - modifies a database data တွေကို မပြင်ဘူး
+ALTER TABLE - modifies a table - data တွေကို မပြင်ဘူး
+
+DROP DATABASE - delete a database
+DROP TABLE - delete a table
+
+
+INSERT INTO - inserts new data into database table
+SELECT - extracts data from database
+UPDATE - update data in a database table
+DELETE - delete data in a database table
+
+--------------------------------------------------------------
